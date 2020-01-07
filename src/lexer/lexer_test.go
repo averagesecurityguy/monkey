@@ -1,44 +1,44 @@
 package lexer
 
 import (
-    "testing"
+	"testing"
 
-    "token"
+	"token"
 )
 
 type TokenTest struct {
-    expectedType token.TokenType
-    expectedLiteral rune
+	expectedType    token.TokenType
+	expectedLiteral rune
 }
 
 func TestNextToken(t *testing.T) {
-    input := "=+(){},;😀\n="
+	input := "=+(){},+😀\n+"
 
-    tests := []TokenTest{
-        {token.ASSIGN, rune('=')},
-        {token.PLUS, rune('+')},
-        {token.LPAREN, rune('(')},
-        {token.RPAREN, rune(')')},
-        {token.LBRACE, rune('{')},
-        {token.RBRACE, rune('}')},
-        {token.COMMA, rune(',')},
-        {token.SEMICOLON, rune(';')},
-        {token.SMILEY, rune('😀')},
-        {token.NEWLINE, rune('\n')},
-        {token.ASSIGN, rune('=')},
-    }
+	tests := []TokenTest{
+		{token.ASSIGN, '='},
+		{token.PLUS, '+'},
+		{token.LPAREN, '('},
+		{token.RPAREN, ')'},
+		{token.LBRACE, '{'},
+		{token.RBRACE, '}'},
+		{token.COMMA, ','},
+		{token.SEMICOLON, ';'},
+		{token.SMILEY, '😀'},
+		{token.NEWLINE, '\n'},
+		{token.ASSIGN, '='},
+	}
 
-    l := NewLexer(input)
+	l := NewLexer(input)
 
-    for _, tt := range tests {
-        tok := l.NextToken()
+	for _, tt := range tests {
+		tok := l.NextToken()
 
-        if tok.Type != tt.expectedType {
-            t.Fatalf("Line %d Char: %d - Expected %q found %q", l.lineNumber, l.linePosition, tt.expectedType, tok.Type)
-        }
+		if tok.Type != tt.expectedType {
+			t.Fatalf("Line %d Char: %d - Expected %q found %q", l.lineNumber, l.linePosition, tt.expectedType, tok.Type)
+		}
 
-        if tok.Literal != tt.expectedLiteral {
-            t.Fatalf("Line: %d Char: %d - Expected %q found %q", l.lineNumber, l.linePosition, tt.expectedLiteral, tok.Literal)
-        }
-    }
+		if tok.Literal != tt.expectedLiteral {
+			t.Fatalf("Line: %d Char: %d - Expected %q found %q", l.lineNumber, l.linePosition, tt.expectedLiteral, tok.Literal)
+		}
+	}
 }
