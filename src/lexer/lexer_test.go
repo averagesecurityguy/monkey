@@ -12,7 +12,7 @@ type TokenTest struct {
 }
 
 func TestNextToken(t *testing.T) {
-	input := "=+(){},+😀\n+"
+	input := "=+(){},;😀\n+"
 
 	tests := []TokenTest{
 		{token.ASSIGN, '='},

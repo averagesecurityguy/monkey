@@ -16,7 +16,6 @@ type Lexer struct {
 func NewLexer(input string) *Lexer {
 	l := &Lexer{input: []rune(input)}
 	l.lineNumber = 1
-	// l.readRune()
 
 	return l
 }
@@ -28,18 +27,20 @@ func (l *Lexer) readRune() {
 		l.ch = l.input[l.readPosition]
 	}
 
-	if l.ch == '\n' {
-		l.lineNumber += 1
-		l.linePosition = 0
-	}
-
 	l.position = l.readPosition
 	l.readPosition += 1
 	l.linePosition += 1
+
+    if l.ch == '\n' {
+		l.lineNumber += 1
+		l.linePosition = 0
+	}
 }
 
 func (l *Lexer) NextToken() token.Token {
 	var tok token.Token
+
+    l.readRune()
 
 	switch l.ch {
 	case '=':
@@ -67,8 +68,6 @@ func (l *Lexer) NextToken() token.Token {
 	default:
 		tok = token.Token{token.ILLEGAL, rune(0)}
 	}
-
-	l.readRune()
 
 	return tok
 }
