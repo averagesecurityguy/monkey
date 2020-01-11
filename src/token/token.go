@@ -4,6 +4,7 @@ const (
 	ILLEGAL = "ILLEGAL"
 	EOF     = "EOF"
 	NEWLINE = "NEWLINE"
+    RETURN = "RETURN"
 
 	// Identifiers + literals
 	IDENT = "IDENT"
@@ -12,6 +13,12 @@ const (
 	// Operators
 	ASSIGN = "="
 	PLUS   = "+"
+    MINUS = "-"
+    BANG = "!"
+    ASTERISK = "*"
+    SLASH = "/"
+    LT = "<"
+    GT = ">"
 
 	// Delimiters
 	COMMA     = ","
@@ -25,13 +32,26 @@ const (
 	FUNCTION = "FUNCTION"
 	LET      = "LET"
 
-	// Emoji
-	SMILEY = "😀"
+    // Emojis
+    SMILEY = "😀"
 )
 
 type TokenType string
 
 type Token struct {
 	Type    TokenType
-	Literal rune
+	Literal string
+}
+
+var keywords = map[string]TokenType {
+    "fn": FUNCTION,
+    "let": LET,
+}
+
+func LookupIdent(ident string) TokenType {
+    if tok, ok := keywords[ident]; ok {
+        return tok
+    }
+
+    return IDENT
 }
