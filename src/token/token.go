@@ -7,6 +7,7 @@ const (
 	// Identifiers + literals
 	IDENT = "IDENT"
 	INT   = "INT"
+    HEX = "HEX"
 
 	// Operators
 	ASSIGN = "="
@@ -19,6 +20,8 @@ const (
     GT = ">"
     EQ = "=="
     NOT_EQ = "!="
+    LT_EQ = "<="
+    GT_EQ = ">="
 
 	// Delimiters
 	COMMA     = ","
