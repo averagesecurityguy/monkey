@@ -31,6 +31,14 @@ func (l *Lexer) readRune() {
 	l.readPosition += 1
 }
 
+func (l *Lexer) peekRune() rune {
+    if l.readPosition >= len(l.input) {
+        return 0
+    } else {
+        return l.input[l.readPosition]
+    }
+}
+
 func (l *Lexer) NextToken() token.Token {
 	var tok token.Token
 
@@ -38,7 +46,12 @@ func (l *Lexer) NextToken() token.Token {
 
 	switch l.ch {
 	case '=':
-		tok = token.Token{token.ASSIGN, string(l.ch)}
+        if l.peekRune() == '=' {
+            l.readRune()
+            tok = token.Token{token.EQ, "=="}
+        } else {
+		    tok = token.Token{token.ASSIGN, string(l.ch)}
+        }
 	case ';':
 		tok = token.Token{token.SEMICOLON, string(l.ch)}
 	case '(':
@@ -56,7 +69,12 @@ func (l *Lexer) NextToken() token.Token {
 	case '-':
 		tok = token.Token{token.MINUS, string(l.ch)}
 	case '!':
-		tok = token.Token{token.BANG, string(l.ch)}
+        if l.peekRune() == '=' {
+            l.readRune()
+            tok = token.Token{token.NOT_EQ, "!="}
+        } else {
+		    tok = token.Token{token.BANG, string(l.ch)}
+        }
 	case '*':
 		tok = token.Token{token.ASTERISK, string(l.ch)}
 	case '/':

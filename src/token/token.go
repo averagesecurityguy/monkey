@@ -3,8 +3,6 @@ package token
 const (
 	ILLEGAL = "ILLEGAL"
 	EOF     = "EOF"
-	NEWLINE = "NEWLINE"
-    RETURN = "RETURN"
 
 	// Identifiers + literals
 	IDENT = "IDENT"
@@ -19,6 +17,8 @@ const (
     SLASH = "/"
     LT = "<"
     GT = ">"
+    EQ = "=="
+    NOT_EQ = "!="
 
 	// Delimiters
 	COMMA     = ","
@@ -31,6 +31,11 @@ const (
 	// Keywords
 	FUNCTION = "FUNCTION"
 	LET      = "LET"
+    TRUE = "TRUE"
+    FALSE = "FALSE"
+    IF = "IF"
+    ELSE = "ELSE"
+    RETURN = "RETURN"
 
     // Emojis
     SMILEY = "😀"
@@ -46,6 +51,11 @@ type Token struct {
 var keywords = map[string]TokenType {
     "fn": FUNCTION,
     "let": LET,
+    "true": TRUE,
+    "false": FALSE,
+    "if": IF,
+    "else": ELSE,
+    "return": RETURN,
 }
 
 func LookupIdent(ident string) TokenType {
