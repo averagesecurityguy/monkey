@@ -15,6 +15,7 @@ func TestNumbers(t *testing.T) {
     input := `
     let ten = 10 ;
     let tenhex = 0x0a ;
+    let hex = 0xBB;
     `
 
     tests := []TokenTest{
@@ -27,6 +28,11 @@ func TestNumbers(t *testing.T) {
 		{token.IDENT, "tenhex"},
 		{token.ASSIGN, "="},
 		{token.HEX, "0a"},
+		{token.SEMICOLON, ";"},
+        {token.LET, "let"},
+		{token.IDENT, "hex"},
+		{token.ASSIGN, "="},
+		{token.HEX, "BB"},
 		{token.SEMICOLON, ";"},
     }
 
