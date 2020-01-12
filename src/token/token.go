@@ -7,21 +7,21 @@ const (
 	// Identifiers + literals
 	IDENT = "IDENT"
 	INT   = "INT"
-    HEX = "HEX"
+	HEX   = "HEX"
 
 	// Operators
-	ASSIGN = "="
-	PLUS   = "+"
-    MINUS = "-"
-    BANG = "!"
-    ASTERISK = "*"
-    SLASH = "/"
-    LT = "<"
-    GT = ">"
-    EQ = "=="
-    NOT_EQ = "!="
-    LT_EQ = "<="
-    GT_EQ = ">="
+	ASSIGN   = "="
+	PLUS     = "+"
+	MINUS    = "-"
+	BANG     = "!"
+	ASTERISK = "*"
+	SLASH    = "/"
+	LT       = "<"
+	GT       = ">"
+	EQ       = "=="
+	NOT_EQ   = "!="
+	LT_EQ    = "<="
+	GT_EQ    = ">="
 
 	// Delimiters
 	COMMA     = ","
@@ -34,14 +34,14 @@ const (
 	// Keywords
 	FUNCTION = "FUNCTION"
 	LET      = "LET"
-    TRUE = "TRUE"
-    FALSE = "FALSE"
-    IF = "IF"
-    ELSE = "ELSE"
-    RETURN = "RETURN"
+	TRUE     = "TRUE"
+	FALSE    = "FALSE"
+	IF       = "IF"
+	ELSE     = "ELSE"
+	RETURN   = "RETURN"
 
-    // Emojis
-    SMILEY = "😀"
+	// Emojis
+	SMILEY = "😀"
 )
 
 type TokenType string
@@ -51,20 +51,20 @@ type Token struct {
 	Literal string
 }
 
-var keywords = map[string]TokenType {
-    "fn": FUNCTION,
-    "let": LET,
-    "true": TRUE,
-    "false": FALSE,
-    "if": IF,
-    "else": ELSE,
-    "return": RETURN,
+var keywords = map[string]TokenType{
+	"fn":     FUNCTION,
+	"let":    LET,
+	"true":   TRUE,
+	"false":  FALSE,
+	"if":     IF,
+	"else":   ELSE,
+	"return": RETURN,
 }
 
 func LookupIdent(ident string) TokenType {
-    if tok, ok := keywords[ident]; ok {
-        return tok
-    }
+	if tok, ok := keywords[ident]; ok {
+		return tok
+	}
 
-    return IDENT
+	return IDENT
 }

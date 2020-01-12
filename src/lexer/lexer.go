@@ -1,8 +1,8 @@
 package lexer
 
 import (
+	"fmt"
 	"unicode"
-    "fmt"
 
 	"token"
 )
@@ -47,37 +47,37 @@ func (l *Lexer) NextToken() token.Token {
 		tok = token.Token{token.ASTERISK, string(l.ch)}
 	case '/':
 		tok = token.Token{token.SLASH, string(l.ch)}
-    case '0':
-        if l.isTwoCharOp() {
-            l.readRune()
-            hex := string(l.readHex())
-            tok = token.Token{token.HEX, hex}
-            return tok
-        }
-    case '=':
-        if l.isTwoCharOp() {
-            tok = token.Token{token.EQ, "=="}
-        } else {
-		    tok = token.Token{token.ASSIGN, string(l.ch)}
-        }
-    case '!':
-        if l.isTwoCharOp() {
-            tok = token.Token{token.NOT_EQ, "!="}
-        } else {
-		    tok = token.Token{token.BANG, string(l.ch)}
-        }
-    case '<':
-        if l.isTwoCharOp() {
-            tok = token.Token{token.LT_EQ, "<="}
-        } else {
-            tok = token.Token{token.LT, string(l.ch)}
-        }
+	case '0':
+		if l.isTwoCharOp() {
+			l.readRune()
+			hex := string(l.readHex())
+			tok = token.Token{token.HEX, hex}
+			return tok
+		}
+	case '=':
+		if l.isTwoCharOp() {
+			tok = token.Token{token.EQ, "=="}
+		} else {
+			tok = token.Token{token.ASSIGN, string(l.ch)}
+		}
+	case '!':
+		if l.isTwoCharOp() {
+			tok = token.Token{token.NOT_EQ, "!="}
+		} else {
+			tok = token.Token{token.BANG, string(l.ch)}
+		}
+	case '<':
+		if l.isTwoCharOp() {
+			tok = token.Token{token.LT_EQ, "<="}
+		} else {
+			tok = token.Token{token.LT, string(l.ch)}
+		}
 	case '>':
-        if l.isTwoCharOp() {
-            tok = token.Token{token.GT_EQ, ">="}
-        } else {
-            tok = token.Token{token.GT, string(l.ch)}
-        }
+		if l.isTwoCharOp() {
+			tok = token.Token{token.GT_EQ, ">="}
+		} else {
+			tok = token.Token{token.GT, string(l.ch)}
+		}
 	case '😀':
 		tok = token.Token{token.SMILEY, string(l.ch)}
 	case 0:
@@ -114,35 +114,35 @@ func (l *Lexer) readRune() {
 }
 
 func (l *Lexer) peekRune() rune {
-    if l.readPosition >= len(l.input) {
-        return 0
-    } else {
-        return l.input[l.readPosition]
-    }
+	if l.readPosition >= len(l.input) {
+		return 0
+	} else {
+		return l.input[l.readPosition]
+	}
 }
 
 func (l *Lexer) isTwoCharOp() bool {
-    op := []rune{l.ch, l.peekRune()}
+	op := []rune{l.ch, l.peekRune()}
 
-    switch string(op) {
-    case "==":
-        l.readRune()
-        return true
-    case "!=":
-        l.readRune()
-        return true
-    case "<=":
-        l.readRune()
-        return true
-    case ">=":
-        l.readRune()
-        return true
-    case "0x":
-        l.readRune()
-        return true
-    default:
-        return false
-    }
+	switch string(op) {
+	case "==":
+		l.readRune()
+		return true
+	case "!=":
+		l.readRune()
+		return true
+	case "<=":
+		l.readRune()
+		return true
+	case ">=":
+		l.readRune()
+		return true
+	case "0x":
+		l.readRune()
+		return true
+	default:
+		return false
+	}
 }
 
 func (l *Lexer) readIdentifier() []rune {
@@ -164,15 +164,15 @@ func (l *Lexer) readNumber() []rune {
 }
 
 func (l *Lexer) readHex() []rune {
-    position := l.position
-    fmt.Println(string(l.ch))
-    for unicode.IsDigit(l.ch) || unicode.ToLower(l.ch) == 'a' || unicode.ToLower(l.ch) == 'b' ||
-        unicode.ToLower(l.ch) == 'c' || unicode.ToLower(l.ch) == 'd' || unicode.ToLower(l.ch) == 'e' ||
-        unicode.ToLower(l.ch) == 'f' {
-        l.readRune()
-    }
+	position := l.position
+	fmt.Println(string(l.ch))
+	for unicode.IsDigit(l.ch) || unicode.ToLower(l.ch) == 'a' || unicode.ToLower(l.ch) == 'b' ||
+		unicode.ToLower(l.ch) == 'c' || unicode.ToLower(l.ch) == 'd' || unicode.ToLower(l.ch) == 'e' ||
+		unicode.ToLower(l.ch) == 'f' {
+		l.readRune()
+	}
 
-    return l.input[position:l.position]
+	return l.input[position:l.position]
 }
 
 func (l *Lexer) skipWhitespace() {
